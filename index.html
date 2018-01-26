@@ -1,154 +1,158 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
 
-    <title>Hangman</title>
+  <title>Hangman</title>
 
-    <!-- Link to Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+  <!-- Link to Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+</head>
+<body>
 
-  </head>
-  <body>
+  <!-- Page Container -->
+  <div class="container text-center">
 
-    <!-- Page Container -->
-    <div class="container text-center">
-
-      <!-- Page title row -->
-      <div class="row">
-        <div class="col">
-          <h1>Hangman</h1>
-          <h2>Beethoven Style</h2>
-          <p>(Guess the Composer's First Name)</p>
-        </div>
+    <!-- Page title row -->
+    <div class="row">
+      <div class="col">
+        <h1>Hangman</h1>
+        <h2>Beethoven Style</h2>
+        <p>(Guess the Composer's First Name)</p>
       </div>
+    </div> <!-- End 'Page title' row -->
 
-      <!-- Game instructions row -->
-      <div class="row">
-        <div class="col">
-          <p>Press Any Letter To Play</p>
-        </div>
+    <!-- Game instructions row -->
+    <div class="row">
+      <div class="col">
+        <p>Press Any Letter To Play</p>
       </div>
+    </div> <!-- End 'Game instructions' row -->
 
-      <!-- Image  -->
-      <div class="row">
-        <div class="col-6 offset-3">
-          <span class="js-id" style="background-color: grey; padding: 3px;">js-insert-img</span>
-          <img id="js-insert-img" class="img-fluid img-height" src="./assets/images/stock-img.jpg">
-        </div>
+    <!-- Image row -->
+    <div class="row">
+      <div class="col-6 offset-3">
+        <span class="js-id" style="background-color: grey; padding: 3px;">js-insert-img</span>
+        <img id="js-insert-img" class="img-fluid img-height" src="./assets/images/stock-img.jpg">
       </div>
+    </div> <!-- End 'Image' row -->
 
-      <!-- 'Word to be guessed' row -->
-      <div class="row">
-        <div class="col">
+    <!-- 'Word to be guessed' row -->
+    <div class="row">
+      <div class="col">
 
-          <!-- Nested Row 1 -->
-          <div class="row">
-            <div class="col">
-              <p>Current Composer</p>
-            </div>
+        <!-- Nested Row 1 -->
+        <div class="row">
+          <div class="col">
+            <p>Current Composer</p>
           </div>
-          <!-- Nested Row 2 -->
-          <div class="row">
-            <div class="col">
-              <p class="mb-0 js-id">js-hangman-word</p>
-              <p class="h1">
-                <span id="js-hangman-word">W O L F G _ N G</span>
-              </p>
-            </div>
+        </div> <!-- End 'Nested Row 1' -->
+
+        <!-- Nested Row 2 -->
+        <div class="row">
+          <div class="col">
+            <p class="mb-0 js-id">js-hangman-word</p>
+            <p class="h1">
+              <span id="js-hangman-word">W O L F G _ N G</span>
+            </p>
           </div>
-          <!-- Nested Row 3 -->
-          <div class="row">
-            <div class="col">
-              <div class="row">
-                <div class="col">
-                  <p>Guesses Remaining:</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <p>
-                    <span id="js-guesses-remaining"><span class="js-id">js-guesses-remaining</span><br>10</span>
-                  </p>
-                </div>
+        </div> <!-- End 'Nested Row 2' -->
+
+        <!-- Nested Row 3 -->
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <p>Guesses Remaining:</p>
               </div>
             </div>
-          </div> 
-
-        </div> <!-- End 'Word to be guessed' column -->
-      </div> <!-- 'End Word to be guessed' row -->
-
-      <!-- Row of 'letters guessed' -->
-      <div class="row">
-        <div class="col">
-          <div class="row">
-            <div class="col">
-              <p>Letters Guessed:</p>
+            <div class="row">
+              <div class="col">
+                <p>
+                  <span id="js-guesses-remaining"><span class="js-id">js-guesses-remaining</span><br>10</span>
+                </p>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <p>
-                <span id="js-letters-guessed"><span class="js-id">js-letters-guessed</span><br>A, B, C, D...</span>
-              </p>
-            </div>
+        </div> <!-- End 'Nested Row 3' -->
+
+      </div> <!-- End 'Word to be guessed' column -->
+    </div> <!-- 'End Word to be guessed' row -->
+
+    <!-- 'Letters guessed' containing row -->
+    <div class="row">
+      <div class="col">
+
+        <!-- Letters guessed title -->
+        <div class="row">
+          <div class="col">
+            <p>Letters Guessed:</p>
+          </div>
+        </div> <!-- End 'Letters guessed' title -->
+
+        <!-- 'Letters guessed' row -->
+        <div class="row">
+          <div class="col">
+            <p>
+              <span id="js-letters-guessed"><span class="js-id">js-letters-guessed</span><br>A, B, C, D...</span>
+            </p>
           </div>
         </div>
-      </div> <!-- End Row of 'letters guessed' -->
+      </div> <!-- End 'Letters guessed' row -->
 
+    </div> <!-- End 'Letters guessed' containing row -->
 
-      <!-- Win/Loss count row -->
-      <div class="row">
+    <!-- Win/Loss count row -->
+    <div class="row">
 
-        <!-- Win count -->
-        <div class="col-6 col-md-4 offset-md-2">
-          <div class="row">
-            <div class="col">
-              <p>Wins:</p>
-            </div>
+      <!-- Win count -->
+      <div class="col-6 col-md-4 offset-md-2">
+        <div class="row">
+          <div class="col">
+            <p>Wins:</p>
           </div>
-          <div class="row">
-            <div class="col">
-              <p>
-                <span id="js-win-count"><span class="js-id">js-win-count</span><br>0</span>
-              </p>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p>
+              <span id="js-win-count"><span class="js-id">js-win-count</span><br>0</span>
+            </p>
           </div>
-        </div> <!-- End 'Win count' col -->
+        </div>
+      </div> <!-- End 'Win count' col -->
 
-
-        <!-- Loss count -->
-        <div class="col-6 col-md-4">
-          <div class="row">
-            <div class="col"><p>Losses:</p></div>
+      <!-- Loss count -->
+      <div class="col-6 col-md-4">
+        <div class="row">
+          <div class="col"><p>Losses:</p></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p>
+              <span id="js-loss-count"><span class="js-id">js-loss-count</span><br>0</span>
+            </p>
           </div>
-          <div class="row">
-            <div class="col">
-              <p>
-                <span id="js-loss-count"><span class="js-id">js-loss-count</span><br>0</span>
-              </p>
-            </div>
-          </div>
-        </div> <!-- End 'Loss count' col -->
+        </div>
+      </div> <!-- End 'Loss count' col -->
 
-      </div> <!-- End 'Win/Loss count' row -->
+    </div> <!-- End 'Win/Loss count' row -->
 
-    </div> <!-- End 'Page Container' -->
+  </div> <!-- End 'Page Container' -->
 
-    <!-- Optional JavaScript -->
-    <script src="./assets/javascript/game.js"></script>
+  <!-- Optional JavaScript -->
+  <script src="./assets/javascript/game.js"></script>
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 </html>
