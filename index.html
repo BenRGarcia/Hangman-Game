@@ -19,6 +19,128 @@
   </head>
   <body>
 
+    <!-- Page Container -->
+    <div class="container text-center">
+
+      <!-- Page title row -->
+      <div class="row">
+        <div class="col">
+          <h1>Hangman</h1>
+          <h2>Beethoven Style</h2>
+          <p>(Guess the Composer's First Name)</p>
+        </div>
+      </div>
+
+      <!-- Game instructions row -->
+      <div class="row">
+        <div class="col">
+          <p>Press Any Letter To Play</p>
+        </div>
+      </div>
+
+      <!-- Image  -->
+      <div class="row">
+        <div class="col-6 offset-3">
+          <img id="js-insert-img" class="img-fluid  max-img-height" src="./assets/images/stock-img.jpg">
+        </div>
+      </div>
+
+      <!-- 'Word to be guessed' row -->
+      <div class="row">
+        <div class="col">
+
+          <!-- Nested Row 1 -->
+          <div class="row">
+            <div class="col">
+              <p>Current Composer</p>
+            </div>
+          </div>
+          <!-- Nested Row 2 -->
+          <div class="row">
+            <div class="col">
+              <p class="h1">
+                <span id="js-hangman-word">W O L F G _ N G</span>
+              </p>
+            </div>
+          </div>
+          <!-- Nested Row 3 -->
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="col">
+                  <p>Guesses Remaining:</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p>
+                    <span id="js-guesses-remaining">10</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div> 
+
+        </div> <!-- End 'Word to be guessed' column -->
+      </div> <!-- 'End Word to be guessed' row -->
+
+      <!-- Row of 'letters guessed' -->
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col">
+              <p>Letters Guessed:</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                <span id="js-letters-guessed">A, B, C, D...</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Row of 'letters guessed' -->
+
+
+      <!-- Win/Loss count row -->
+      <div class="row">
+
+        <!-- Win count -->
+        <div class="col-6 col-md-4 offset-md-2">
+          <div class="row">
+            <div class="col">
+              <p>Wins:</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                <span id="js-win-count">0</span>
+              </p>
+            </div>
+          </div>
+        </div> <!-- End 'Win count' col -->
+
+
+        <!-- Loss count -->
+        <div class="col-6 col-md-4">
+          <div class="row">
+            <div class="col"><p>Losses:</p></div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                <span id="js-loss-count">0</span>
+              </p>
+            </div>
+          </div>
+        </div> <!-- End 'Loss count' col -->
+
+      </div> <!-- End 'Win/Loss count' row -->
+
+    </div> <!-- End 'Page Container' -->
+
     <!-- Optional JavaScript -->
     <script src="./assets/javascript/game.js"></script>
 
