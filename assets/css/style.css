@@ -7,7 +7,7 @@
   background-color: grey;
 }
 
-.max-img-height {
+.img-height {
   max-height: 300px;
   min-height: 100%;
 }
