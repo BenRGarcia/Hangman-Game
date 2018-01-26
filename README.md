@@ -1,6 +1,6 @@
 # Hangman-Game
 
-Click [here]() to see the live site
+Click [here](https://benrgarcia.github.io/Hangman-Game/) to see the live site
 
 ## Description
 
