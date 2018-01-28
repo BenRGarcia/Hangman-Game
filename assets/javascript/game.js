@@ -1,6 +1,3 @@
-
-
-// Game properties -- getters, setters, and methods (Oh My!)
 const gameProps = {
   _guessesRemaining: 0,
   _winCount: 0,
@@ -24,7 +21,8 @@ const gameProps = {
     if (this._alphabet.indexOf(userGuess) !== -1 && 
         this._lettersGuessed.indexOf(userGuess) === -1) {
       this._lettersGuessed.push(userGuess);
-    } 
+      this.decrementGuessesRemaining();
+    }
   },
 
   get guessesRemaining() {
@@ -45,6 +43,10 @@ const gameProps = {
 
   get secretWord() {
     return this._secretWordObject.name;
+  },
+
+  get alphabet() {
+    return this._alphabet;
   },
 
   get imageSrc() {
@@ -74,8 +76,23 @@ const gameProps = {
   newRoundGameProps() {
     this._guessesRemaining = 10;
     this._lettersGuessed = [];
+  },
+
+  isLetterMatch(guess) {
+    if (guess) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  renderDOM(gamePropsComponent, elementId) {
+    document.getElementById(elementId).innerHTML = gamePropsComponent;
   }
 }
+
+gameProps.newRoundGameProps();
+gameProps.secretWordObject();
 
 // Listen for keypress events
 document.addEventListener('keypress', (event) => {
@@ -84,28 +101,14 @@ document.addEventListener('keypress', (event) => {
 
   gameProps.lettersGuessed = guess;
 
-});
+  gameProps.renderDOM(gameProps.lettersGuessed, 'js-letters-guessed');
+  gameProps.renderDOM(gameProps.guessesRemaining, 'js-guesses-remaining');
 
-// Render props to DOM
-let hangmanDOM = {
-  render(gamePropsComponent, elementId) {
-    document.getElementById(elementId).innerHTML = gamePropsComponent;
+  // Test if game is over
+  if (gameProps.guessesRemaining === 0) {
+    alert(`You lost this round! The correct word was: ${gameProps.secretWord}`);
+    gameProps.newRoundGameProps();
+    gameProps.renderDOM(gameProps.lettersGuessed, 'js-letters-guessed');
+    gameProps.renderDOM(gameProps.guessesRemaining, 'js-guesses-remaining');
   }
-}
-
-gameProps.secretWordObject();
-
-/*
- * example 'render' function call: 
- * hangmanDOM.render(
- *   gameProps.winCount,
- *   js-win-count
- * );
- *
- * document.getElementById('js-insert-img').innerHTML = gameProps.imageSrc;
- * document.getElementById('js-hangman-word').innerHTML = gameProps.secretWord;
- * document.getElementById('js-guessess-remaining').innerHTML = gameProps.guessesRemaining;
- * document.getElementById('js-letters-guessed').innerHTML = gameProps.lettersGuessed;
- * document.getElementById('js-win-count').innerHTML = gameProps.winCount;
- * document.getElementById('js-loss-count').innerHTML = gameProps.lossCount;
-*/
+});
