@@ -1,3 +1,41 @@
+/*
+MVC Framework:
+
+Model: (Classes used to store and manipulate state)
+  gameProps Object (game variables)
+  composerList Object (game word bank)
+
+View: (The user interface necessary to render the model to the user)
+  renderDOM object (updates DOM)
+
+Controller: (The brains of the application)
+  gameEngine object ('runs the show')
+
+*/
+
+
+const hangmanWords = {
+  _wordBank:[
+    {word: "CHOPIN",       src: "./assets/images/stock-img.jpg", alt: "Picture of Frédéric Chopin"},
+    {word: "BACH",         src: "./assets/images/stock-img.jpg", alt: "Picture of Johann Sebastian Bach"},
+    {word: "BEETHOVEN",    src: "./assets/images/stock-img.jpg", alt: "Picture of Ludwig Van Beethoven"},
+    {word: "RACHMANINOFF", src: "./assets/images/stock-img.jpg", alt: "Picture of Sergei Rachmaninoff"},
+    {word: "MOZART",       src: "./assets/images/stock-img.jpg", alt: "Picture of Wolfgang Mozart"}
+  ],
+
+  set composers(wordObject) {
+    if (/* Test for object with 3 required properties */) {
+      this._wordBank.push(wordObject);
+    }
+  },
+
+  get composers() {
+    return this._composers[Math.floor(Math.random() * this._composers.length];
+  }
+};
+
+
+
 const gameProps = {
   _guessesRemaining: 0,
   _winCount: 0,
@@ -7,13 +45,6 @@ const gameProps = {
   _alphabet: [
     "A","B","C","D","E","F","G","H","I","J","K","L","M",
     "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
-  ],
-  _composers: [
-    {name: "CHOPIN",       src: "./assets/images/stock-img.jpg", alt: "Picture of Frédéric Chopin"},
-    {name: "BACH",         src: "./assets/images/stock-img.jpg", alt: "Picture of Johann Sebastian Bach"},
-    {name: "BEETHOVEN",    src: "./assets/images/stock-img.jpg", alt: "Picture of Ludwig Van Beethoven"},
-    {name: "RACHMANINOFF", src: "./assets/images/stock-img.jpg", alt: "Picture of Sergei Rachmaninoff"},
-    {name: "MOZART",       src: "./assets/images/stock-img.jpg", alt: "Picture of Wolfgang Mozart"}
   ],
 
   set lettersGuessed(userGuess) {
@@ -94,7 +125,7 @@ const gameProps = {
       document.getElementById('js-guesses-remaining').innerHTML = gameProps.guessesRemaining;
 
     if (component === "word")
-      document.getElementById('js-hangman-word').innerHTML = gameProps.?????;
+      // document.getElementById('js-hangman-word').innerHTML = gameProps.;
 
     if (component === "winCount")
       document.getElementById('js-win-count').innerHTML = gameProps.winCount;
@@ -106,7 +137,7 @@ const gameProps = {
       document.getElementById('js-insert-img').src = gameProps.imageSrc;
       document.getElementById('js-insert-img').alt = gameProps.imageAlt;
   }
-}
+};
 
 gameProps.newRoundGameProps();
 gameProps.secretWordObject();
