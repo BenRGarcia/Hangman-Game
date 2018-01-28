@@ -86,8 +86,25 @@ const gameProps = {
     }
   },
 
-  renderDOM(gamePropsComponent, elementId) {
-    document.getElementById(elementId).innerHTML = gamePropsComponent;
+  renderDOM(component) {
+    if (component === "lettersGuessed")
+      document.getElementById('js-letters-guessed').innerHTML = gameProps.lettersGuessed;
+
+    if (component === "guessesRemaining")
+      document.getElementById('js-guesses-remaining').innerHTML = gameProps.guessesRemaining;
+
+    if (component === "word")
+      document.getElementById('js-hangman-word').innerHTML = gameProps.?????;
+
+    if (component === "winCount")
+      document.getElementById('js-win-count').innerHTML = gameProps.winCount;
+
+    if (component === "lossCount")
+      document.getElementById('js-loss-count').innerHTML = gameProps.lossCount;
+
+    if (component === "image")
+      document.getElementById('js-insert-img').src = gameProps.imageSrc;
+      document.getElementById('js-insert-img').alt = gameProps.imageAlt;
   }
 }
 
