@@ -15,3 +15,8 @@
 .js-id {
   color: yellow;
 }
+
+#js-hangman-word {
+  letter-spacing: 15px;
+  font-family: monospace;
+}
