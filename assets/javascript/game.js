@@ -41,20 +41,14 @@ const gameProps = {
   _lossCount: 0,
   _lettersGuessed: [],
   _wordBankObject: {},
-  _underscoreWord: "",
+  _underscoreWord: [],
   _alphabet: [
     "A","B","C","D","E","F","G","H","I","J","K","L","M",
     "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
   ],
 
-  set lettersGuessed(userGuess) {
-    userGuess = userGuess.toUpperCase();
-    if (this._alphabet.indexOf(userGuess) !== -1 && 
-        this._lettersGuessed.indexOf(userGuess) === -1) 
-    {
-      this._lettersGuessed.push(userGuess);
-      this.decrementGuessesRemaining();
-    }
+  addLettersGuessed(userGuess) {
+    this._lettersGuessed.push(userGuess);
   },
 
   guessHandler(guess) {
@@ -73,11 +67,15 @@ const gameProps = {
 
   set underscoreWord(hangmanWordObj) {
     let j = hangmanWordObj.word.length;
-    let underscoreWord = "";
+    let underscoreWord = [];
     for (let i = 0; i < j; i++) {
-      underscoreWord += "_";
+      underscoreWord.push('_');
     }
     this._underscoreWord = underscoreWord;
+  },
+
+  get alphabet() {
+    return this._alphabet;
   },
 
   get underscoreWord() {
@@ -117,13 +115,15 @@ const gameProps = {
   },
 
   isGuessValid(guess) {
-    if (this._alphabet.indexOf(guess) !== -1 && 
-        this._lettersGuessed.indexOf(guess) === -1) 
+    if (this.alphabet.indexOf(guess) !== -1 && 
+        this.lettersGuessed.indexOf(guess) === -1) 
     {
+      console.log(`${guess} was valid`);
       return true;
     } 
     else 
     {
+      console.log(`${guess} was invalid`);
       return false;
     }
   },
@@ -131,8 +131,10 @@ const gameProps = {
   isGuessRight(guess) {
     let hangmanWord = this.wordBankWord;
     if (hangmanWord.indexOf(guess) !== -1) {
+      console.log(`guess was right`);
       return true;
     } else {
+      console.log(`guess was wrong`);
       return false;
     }
   },
@@ -168,11 +170,8 @@ const DOM = {
 
     switch (component) {
 
-      case 'lettersGuessed':
+      case 'incorrectGuess':
         document.getElementById('js-letters-guessed').innerHTML = gameProps.lettersGuessed;
-        break;
-
-      case 'guessesRemaining':
         document.getElementById('js-guesses-remaining').innerHTML = gameProps.guessesRemaining;
         break;
 
@@ -230,11 +229,21 @@ const gameEngine = {
       // Test for if letter guessed is right
       if (gameProps.isGuessRight(guess)) {
         // replace index/indices of underscore word, render updated underscore word
+        /* how do I do that?????? (will find out later) */
 
+        // render underscore word
+        DOM.render('underscoreWord');
+
+        // if letter guessed is not right
       } else {
         // add letter guessed to lettersGuessed array
+        gameProps.addLettersGuessed(guess);
+
         // decrement guessesRemaining
+        gameProps.decrementGuessesRemaining();
+
         // render updated guessesRemaining # and lettersGuessed array
+        DOM.render('incorrectGuess');
       }
     }
 
@@ -246,18 +255,21 @@ const gameEngine = {
     }
 
     // Test for loss/game over
-    if (false/* guesses remaining = 0 */) {
+    if (gameProps.guessesRemaining <= 0) {
       // alert user of lost game
+      console.log("User lost game");
+
       // increment loss count
+      gameProps.incrementLossCount();
+
       // call this.newRound();
-      // 
+      this.newRound();
+      console.log(`New hangman word is ${gameProps.wordBankWord}`);
+
+      // render DOM
+      DOM.render('newRound');
     }
 
-
-
-    gameProps.lettersGuessed = guess;
-    let secretWordObj = hangmanWords.wordBank;
-    gameProps.underscoreWord = secretWordObj;
     if (false) {
 
     }
@@ -298,9 +310,10 @@ const gameEngine = {
 
 // Initialize gameProps when page loads the first time
 gameEngine.newRound();
+console.log(`Hangman word is: ${gameProps.wordBankWord}`);
 
 // Event listener
 document.addEventListener('keypress', (event) => {
-  let guess = event.key;
+  let guess = event.key.toUpperCase();
   gameEngine.controller(guess);
 });
