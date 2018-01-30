@@ -1,18 +1,9 @@
-/*
- * MVC Framework:
- * View: (The user interface necessary to render the model to the user)
- *   renderDOM object (updates DOM)
- * Controller: (The brains of the application)
- *   gameEngine object ('runs the show')
-*/
-
 /* 
  *  MODEL - directly manages the data, logic and rules of the application
  */
 
-// Word Bank
-const hangmanWords = {
-  _wordBank:[
+const hangmanWordBank = {
+  _words:[
     {word: "CHOPIN",       src: "./assets/images/chopin.jpg",       alt: "Picture of Frédéric Chopin"      },
     {word: "BACH",         src: "./assets/images/bach.jpg",         alt: "Picture of Johann Sebastian Bach"},
     {word: "BEETHOVEN",    src: "./assets/images/beethoven.jpg",    alt: "Picture of Ludwig Van Beethoven" },
@@ -30,132 +21,140 @@ const hangmanWords = {
     {word: "MOZART",       src: "./assets/images/mozart.jpg",       alt: "Picture of Wolfgang Mozart"      }
   ],
 
-  get wordBank() {
-    return this._wordBank[Math.floor(Math.random() * this._wordBank.length)];
+  get word() {
+    return this._words[Math.floor(Math.random() * this._words.length)];
   }
 };
 
-const gameProps = {
-  _guessesRemaining: 0,
-  _winCount: 0,
-  _lossCount: 0,
+const hangmanGame = {
+  guessesRemaining: 0,
+  winCount: 0,
+  lossCount: 0,
+  _wordObject: {},
+  _hangmanWord: [],
   _lettersGuessed: [],
-  _wordBankObject: {},
-  _underscoreWord: [],
-  _alphabet: [
-    "A","B","C","D","E","F","G","H","I","J","K","L","M",
-    "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
-  ],
+  alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 
-  addLettersGuessed(userGuess) {
-    this._lettersGuessed.push(userGuess);
+  get word() {
+    return this._wordObject.word;
   },
 
-  guessHandler(guess) {
-    let word = this.wordBank.word;
-    let j = word.length;
-    for (let i = 0; i < j; i++) {
-      if (guess === word[i]) {
-        this._underscoreWord[i] = guess;
+  get imageSrc() {
+    return this._wordObject.src;
+  },
+
+  get imageAlt() {
+    return this._wordObject.alt;
+  },
+
+  get hangmanWord() {
+    return this._hangmanWord.join('');
+  },
+
+  get lettersGuessed() {
+    return this._lettersGuessed.join(' ');
+  },
+
+  set wordObject(obj) {
+    // Test for required properties of word object before setting
+    if (Object.keys(obj).indexOf("alt")  !== -1 &&
+        Object.keys(obj).indexOf("src")  !== -1 &&
+        Object.keys(obj).indexOf("word") !== -1)
+    {
+      this._wordObject = obj;
+      console.log(`Hangman word is: ${this.word}`);
+    }
+  },
+
+  userGuesses(guess) {
+
+    // Was user guess 1) a letter, and 2) not already guessed
+    if (this.guessIsValid(guess)) {
+
+      // If user guess was correct
+      if (this.guessIsCorrect(guess)) {
+        this.updateHangmanWord(guess);
+        return true;
+      } 
+      // If user guess was incorrect
+      else {
+        this.addToLettersGuessed(guess);
+        this.decrementGuessesRemaining();
+        return false;
       }
     }
   },
 
-  set wordBankObject(obj) {
-    this._wordBankObject = obj;
-  },
-
-  set underscoreWord(hangmanWordObj) {
-    let j = hangmanWordObj.word.length;
-    let underscoreWord = [];
-    for (let i = 0; i < j; i++) {
-      underscoreWord.push('_');
-    }
-    this._underscoreWord = underscoreWord;
-  },
-
-  get alphabet() {
-    return this._alphabet;
-  },
-
-  get underscoreWord() {
-    return this._underscoreWord;
-  },
-
-  get guessesRemaining() {
-    return this._guessesRemaining;
-  },
-
-  get winCount() {
-    return this._winCount;
-  },
-
-  get lossCount() {
-    return this._lossCount;
-  },
-
-  get lettersGuessed() {
-    return this._lettersGuessed;
-  },
-
-  get wordBankWord() {
-    return this._wordBankObject.word;
-  },
-
-  get alphabet() {
-    return this._alphabet;
-  },
-
-  get imageSrc() {
-    return this._wordBankObject.src;
-  },
-
-  get imageAlt() {
-    return this._wordBankObject.alt;
-  },
-
-  isGuessValid(guess) {
-    if (this.alphabet.indexOf(guess) !== -1 && 
-        this.lettersGuessed.indexOf(guess) === -1) 
+  guessIsValid(guess) {
+    if (this.alphabet.indexOf(guess)        !== -1 && // guess *is* in alphabet
+        this._lettersGuessed.indexOf(guess) === -1 && // guess *not* in previously guessed letters
+        this._hangmanWord.indexOf(guess)    === -1)   // guess *not* already in hangman letters
     {
-      console.log(`${guess} was valid`);
       return true;
-    } 
-    else 
+    }
+    else
     {
-      console.log(`${guess} was invalid`);
       return false;
     }
   },
 
-  isGuessRight(guess) {
-    let hangmanWord = this.wordBankWord;
-    if (hangmanWord.indexOf(guess) !== -1) {
-      console.log(`guess was right`);
-      return true;
-    } else {
-      console.log(`guess was wrong`);
-      return false;
+  guessIsCorrect(guess) {
+    if (this.word.indexOf(guess) !== -1) return true;
+    else return false;
+  },
+
+  updateHangmanWord(guess) {
+    for (let i = 0; i < this.word.length; i++) {
+      if (this.word.charAt(i) === guess) {
+        this._hangmanWord[i] = guess; 
+      }
     }
+  },
+
+  addToLettersGuessed(guess) {
+    this._lettersGuessed.push(guess);
   },
 
   decrementGuessesRemaining() {
-    this._guessesRemaining--;
+    this.guessesRemaining--;
   },
 
   incrementWinCount() {
-    this._winCount++;
+    this.winCount++;
   },
 
   incrementLossCount() {
-    this._lossCount++;
+    this.lossCount++;
   },
 
-  newRoundGameProps() {
-    this._guessesRemaining = 10;
+  newRound() {
+    this.guessesRemaining = 10;
     this._lettersGuessed = [];
-    this._underscoreWord = ""; // <-- superfluous?
-    this._wordBankObject = {}; // <-- superfluous?
+    this.hangmanWordInitialState();
+  },
+
+  hangmanWordInitialState() {
+    let underscoreWord = [];
+    for (let i = 0; i < this.word.length; i++) {
+      underscoreWord.push("_");
+    }
+    this._hangmanWord = underscoreWord;
+  },
+
+  didUserWin() {
+    if (this.word === this.hangmanWord) {
+      this.incrementWinCount();
+      return true;
+    }
+    else return false;
+  },
+
+  didUserLose() {
+    if (this.guessesRemaining <= 0) {
+      this.incrementLossCount();
+      return true;
+    }
+    else return false;
   }
 };
 
@@ -171,33 +170,35 @@ const DOM = {
     switch (component) {
 
       case 'incorrectGuess':
-        document.getElementById('js-letters-guessed').innerHTML = gameProps.lettersGuessed;
-        document.getElementById('js-guesses-remaining').innerHTML = gameProps.guessesRemaining;
+        document.getElementById('js-letters-guessed').innerHTML = hangmanGame.lettersGuessed;
+        document.getElementById('js-guesses-remaining').innerHTML = hangmanGame.guessesRemaining;
         break;
 
-      case 'underscoreWord':
-        document.getElementById('js-hangman-word').innerHTML = gameProps.underscoreWord;
+      case 'correctGuess':
+        document.getElementById('js-hangman-word').innerHTML = hangmanGame.hangmanWord;
         break;
 
-      case 'winCount':
-        document.getElementById('js-win-count').innerHTML = gameProps.winCount;
+      case 'winRound':
+        document.getElementById('js-letters-guessed').innerHTML = hangmanGame.lettersGuessed;
+        document.getElementById('js-win-count').innerHTML = hangmanGame.winCount;
+        document.getElementById('js-insert-img').src = hangmanGame.imageSrc;
+        document.getElementById('js-insert-img').alt = hangmanGame.imageAlt;
         break;
 
-      case 'lossCount':
-        document.getElementById('js-loss-count').innerHTML = gameProps.lossCount;
-        break;
-
-      case 'image':
-        document.getElementById('js-insert-img').src = gameProps.imageSrc;
-        document.getElementById('js-insert-img').alt = gameProps.imageAlt;
+      case 'loseRound':
+        document.getElementById('js-letters-guessed').innerHTML = hangmanGame.lettersGuessed;
+        document.getElementById('js-guesses-remaining').innerHTML = hangmanGame.guessesRemaining;
+        document.getElementById('js-loss-count').innerHTML = hangmanGame.lossCount;
+        document.getElementById('js-insert-img').src = hangmanGame.imageSrc;
+        document.getElementById('js-insert-img').alt = hangmanGame.imageAlt;
         break;
 
       case 'newRound':
-        document.getElementById('js-letters-guessed').innerHTML = gameProps.lettersGuessed;
-        document.getElementById('js-hangman-word').innerHTML = gameProps.underscoreWord;
-        document.getElementById('js-guesses-remaining').innerHTML = gameProps.guessesRemaining;
-        document.getElementById('js-win-count').innerHTML = gameProps.winCount;
-        document.getElementById('js-loss-count').innerHTML = gameProps.lossCount;
+        document.getElementById('js-letters-guessed').innerHTML = hangmanGame.lettersGuessed;
+        document.getElementById('js-hangman-word').innerHTML = hangmanGame.hangmanWord;
+        document.getElementById('js-guesses-remaining').innerHTML = hangmanGame.guessesRemaining;
+        document.getElementById('js-insert-img').src = "./assets/images/piano.jpg";
+        document.getElementById('js-insert-img').alt = "Picture of piano";
         break;
 
       default:
@@ -214,6 +215,8 @@ const DOM = {
  *  Controller - accepts input and converts it to commands for the model/view
  */
 
+
+
 //    gameEngine's purpose:
 // 1) interaction with game props object
 // 2) interaction with hangman word bank
@@ -223,66 +226,62 @@ const gameEngine = {
 
   controller(guess) {
 
-    // Test for being a letter of alphabet, not already guessed
-    if (gameProps.isGuessValid(guess)) {
+    // Was user guess valid (letter of alphabet), not a repeat, and correct
+    if (hangmanGame.userGuesses(guess)) {
+      
+      // Update DOM with updated hangman word
+      DOM.render('correctGuess');
 
-      // Test for if letter guessed is right
-      if (gameProps.isGuessRight(guess)) {
-        // replace index/indices of underscore word, render updated underscore word
-        /* how do I do that?????? (will find out later) */
+      // Test if user won the game
+      if (hangmanGame.didUserWin()) {
 
-        // render underscore word
-        DOM.render('underscoreWord');
+        // Render update to DOM
+        DOM.render('winRound');
 
-        // if letter guessed is not right
-      } else {
-        // add letter guessed to lettersGuessed array
-        gameProps.addLettersGuessed(guess);
+        // Alert user to win (after DOM has time to render)
+        setTimeout( () => {
+            alert("You won this round!\n\nPress ENTER to play again!");
+        }, 100);
 
-        // decrement guessesRemaining
-        gameProps.decrementGuessesRemaining();
-
-        // render updated guessesRemaining # and lettersGuessed array
-        DOM.render('incorrectGuess');
+        setTimeout( () => {
+            this.nextRound();
+        }, 200);
       }
-    }
 
-    // test for win
-    if (false/* underscore word = hangman word */) {
-      // alert user of won game
-      // increment win game
-      // render image src/alt to page, queue music/sound
-    }
+    } 
+    // If user guess was incorrect
+    else {
+      
+      DOM.render('incorrectGuess');
 
-    // Test for loss/game over
-    if (gameProps.guessesRemaining <= 0) {
-      // alert user of lost game
-      console.log("User lost game");
+      // Test if user lost game
+      if (hangmanGame.didUserLose()) {
 
-      // increment loss count
-      gameProps.incrementLossCount();
+        // Render update to DOM
+        DOM.render('loseRound');
 
-      // call this.newRound();
-      this.newRound();
-      console.log(`New hangman word is ${gameProps.wordBankWord}`);
+        // Alert user to loss (after DOM has time to render)
+        setTimeout( () => {
+            alert(`You lost this round!\n\nThe word was: ${hangmanGame.word}\n\nPress ENTER to play again!`);
+        }, 100);
 
-      // render DOM
-      DOM.render('newRound');
-    }
+        setTimeout( () => {
+            this.nextRound();
+        }, 200);
 
-    if (false) {
+      }
 
     }
+    
   },
 
-  // Setup gameProps to be ready for new round of gameplay
-  newRound() {
-    gameProps.newRoundGameProps();       // guessesRemaining = 10, lettersGuessed = []
-    let wordObj = hangmanWords.wordBank; // generate new hangman word
-    gameProps.wordBankObject = wordObj;  // add new hangman word to gameProps
-    gameProps.underscoreWord = wordObj;  // set underscore word
-    DOM.render('newRound');              // render gameProps to DOM
+  //  Get ready for new round of gameplay
+  nextRound() {
+    hangmanGame.wordObject = hangmanWordBank.word;
+    hangmanGame.newRound();
+    DOM.render('newRound');
   }
+
 };
 
  /*
@@ -309,11 +308,10 @@ const gameEngine = {
 /*====================================================================================*/
 
 // Initialize gameProps when page loads the first time
-gameEngine.newRound();
-console.log(`Hangman word is: ${gameProps.wordBankWord}`);
+gameEngine.nextRound();
 
 // Event listener
 document.addEventListener('keypress', (event) => {
   let guess = event.key.toUpperCase();
   gameEngine.controller(guess);
-});
+})
