@@ -21,133 +21,90 @@
   <!-- Page Container -->
   <div class="container text-center">
 
-    <!-- Page title row -->
     <div class="row">
-      <div class="col">
-        <h1>Hangman</h1>
-        <h2>Beethoven Style</h2>
-        <p>(Guess the Composer's First Name)</p>
-      </div>
-    </div> <!-- End 'Page title' row -->
+      <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2 page-bg">
 
-    <!-- Game instructions row -->
-    <div class="row">
-      <div class="col">
-        <p>Press Any Letter To Play</p>
-      </div>
-    </div> <!-- End 'Game instructions' row -->
-
-    <!-- Image row -->
-    <div class="row">
-      <div class="col-6 offset-3">
-        <span class="js-id" style="background-color: grey; padding: 3px;">js-insert-img</span>
-        <img id="js-insert-img" class="img-fluid img-height" src="./assets/images/piano.jpg" alt="Picture of piano">
-      </div>
-    </div> <!-- End 'Image' row -->
-
-    <!-- 'Word to be guessed' row -->
-    <div class="row">
-      <div class="col">
-
-        <!-- Nested Row 1 -->
-        <div class="row">
-          <div class="col">
-            <p>Current Composer</p>
-          </div>
-        </div> <!-- End 'Nested Row 1' -->
-
-        <!-- Nested Row 2 -->
-        <div class="row">
-          <div class="col">
-            <p class="mb-0 js-id">js-hangman-word</p>
-            <p class="h1">
-              <span id="js-hangman-word">WOLFG_NG</span>
-            </p>
-          </div>
-        </div> <!-- End 'Nested Row 2' -->
-
-        <!-- Nested Row 3 -->
-        <div class="row">
-          <div class="col">
-            <div class="row">
-              <div class="col">
-                <p>Guesses Remaining:</p>
-              </div>
+      <!-- Page title row -->
+      <div class="row">
+        <div class="col">
+          <h1>Hangman</h1>
+          <h2 class="mb-0">&#9835; Classical Style &#9835;</h2>
+        </div>
+      </div> <!-- End 'Page title' row -->
+      
+      <!-- Game instructions row -->
+      <div class="row">
+        <div class="col">
+          <p>Press Any Letter To Play</p>
+        </div>
+      </div> <!-- End 'Game instructions' row -->
+      
+      <!-- Image row -->
+      <div class="row">
+        <div class="col-6 offset-3">
+          <img id="js-insert-img" class="img-fluid img-height" src="./assets/images/piano.jpg" alt="Picture of piano">
+        </div>
+      </div> <!-- End 'Image' row -->
+      
+      <!-- 'Word to be guessed' row -->
+      <div class="row">
+        <div class="col">
+      
+          <!-- Nested Row 1 -->
+          <div class="row">
+            <div class="col">
+              <p class="mb-0 mt-2">Category: Composer Names</p>
             </div>
-            <div class="row">
-              <div class="col">
-                <p>
-                  <span class="js-id">js-guesses-remaining</span><br>
-                  <span id="js-guesses-remaining">X</span>
-                </p>
-              </div>
+          </div> <!-- End 'Nested Row 1' -->
+      
+          <!-- Nested Row 2 -->
+          <div class="row">
+            <div class="col col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-xl-6 offset-xl-3 col-border">
+              <p class="h1 mb-0">
+                <span id="js-hangman-word"></span>
+              </p>
             </div>
-          </div>
-        </div> <!-- End 'Nested Row 3' -->
-
-      </div> <!-- End 'Word to be guessed' column -->
-    </div> <!-- 'End Word to be guessed' row -->
-
-    <!-- 'Letters guessed' containing row -->
-    <div class="row">
-      <div class="col">
-
-        <!-- Letters guessed title -->
-        <div class="row">
-          <div class="col">
-            <p>Letters Guessed:</p>
-          </div>
+          </div> <!-- End 'Nested Row 2' -->
+      
+          <!-- Nested Row 3 -->
+          <div class="row">
+            <div class="col">
+              <h2 class="mb-0">Guesses Remaining:</h2>
+              <h3><span id="js-guesses-remaining">10</span></h3>
+            </div>
+          </div> <!-- End 'Nested Row 3' -->
+      
+        </div> <!-- End 'Word to be guessed' column -->
+      </div> <!-- 'End Word to be guessed' row -->
+      
+      <!-- 'Letters guessed' containing row -->
+      <div class="row">
+        <div class="col">
+            <h2 class="mb-0">Letters Guessed:</h2>
+            <h3 class="min-height mb-0"><span id="js-letters-guessed">?</span></h3>
         </div> <!-- End 'Letters guessed' title -->
+      </div> <!-- End 'Letters guessed' containing row -->
+      
+      <!-- Win/Loss count row -->
+      <div class="row">
+        <!-- Win count -->
+        <div class="col-6 col-md-4 offset-md-2">
+          <h2 class="mb-0">Wins:</h2>
+          <h3>
+            <span id="js-win-count">0</span>
+          </h3>
+        </div> <!-- End 'Win count' col -->
+        <!-- Loss count -->
+        <div class="col-6 col-md-4">
+          <h2 class="mb-0">Losses:</h2>
+          <h3>
+            <span id="js-loss-count">0</span>
+          </h3>
+        </div> <!-- End 'Loss count' col -->
+      </div> <!-- End 'Win/Loss count' row -->
 
-        <!-- 'Letters guessed' row -->
-        <div class="row">
-          <div class="col">
-            <p>
-              <span class="js-id">js-letters-guessed</span><br>
-              <span id="js-letters-guessed">A, B, C, D...</span>
-            </p>
-          </div>
-        </div>
-      </div> <!-- End 'Letters guessed' row -->
-
-    </div> <!-- End 'Letters guessed' containing row -->
-
-    <!-- Win/Loss count row -->
-    <div class="row">
-
-      <!-- Win count -->
-      <div class="col-6 col-md-4 offset-md-2">
-        <div class="row">
-          <div class="col">
-            <p>Wins:</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p>
-              <span class="js-id">js-win-count</span><br>
-              <span id="js-win-count">0</span>
-            </p>
-          </div>
-        </div>
-      </div> <!-- End 'Win count' col -->
-
-      <!-- Loss count -->
-      <div class="col-6 col-md-4">
-        <div class="row">
-          <div class="col"><p>Losses:</p></div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p>
-              <span class="js-id">js-loss-count</span><br>
-              <span id="js-loss-count">0</span>
-            </p>
-          </div>
-        </div>
-      </div> <!-- End 'Loss count' col -->
-
-    </div> <!-- End 'Win/Loss count' row -->
+    </div>
+    </div> <!-- End div for styling purposes -->
 
   </div> <!-- End 'Page Container' -->
 
