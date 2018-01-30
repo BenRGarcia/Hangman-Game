@@ -7,7 +7,7 @@ const hangmanWordBank = {
     {word: "CHOPIN",       src: "./assets/images/chopin.jpg",       alt: "Picture of Frédéric Chopin"      },
     {word: "BACH",         src: "./assets/images/bach.jpg",         alt: "Picture of Johann Sebastian Bach"},
     {word: "BEETHOVEN",    src: "./assets/images/beethoven.jpg",    alt: "Picture of Ludwig Van Beethoven" },
-    {word: "RACHMANINOFF", src: "./assets/images/rachmaninoff.jpg", alt: "Picture of Sergei Rachmaninoff"  },
+    {word: "RACHMANINOV",  src: "./assets/images/rachmaninoff.jpg", alt: "Picture of Sergei Rachmaninov"  },
     {word: "SHUBERT",      src: "./assets/images/shubert.jpg",      alt: "Picture of Franz Shubert"        },
     {word: "LISZT",        src: "./assets/images/liszt.jpg",        alt: "Picture of Franz Liszt"          },
     {word: "BRAHMS",       src: "./assets/images/brahms.jpg",       alt: "Picture of Johannes Brahms"      },
@@ -262,7 +262,7 @@ const gameEngine = {
 
         // Alert user to loss (after DOM has time to render)
         setTimeout( () => {
-            alert(`You lost this round!\n\nThe word was: ${hangmanGame.word}\n\nPress ENTER to play again!`);
+            alert(`You lost this round!\n\nThe composer's name was: ${hangmanGame.word}\n\nPress ENTER to play again!`);
         }, 100);
 
         setTimeout( () => {
