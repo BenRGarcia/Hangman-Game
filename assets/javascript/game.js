@@ -208,19 +208,9 @@ const DOM = {
   }
 };
 
-
-
-
 /*
  *  Controller - accepts input and converts it to commands for the model/view
  */
-
-
-
-//    gameEngine's purpose:
-// 1) interaction with game props object
-// 2) interaction with hangman word bank
-// 3) interaction with rendering
 
 const gameEngine = {
 
@@ -283,29 +273,6 @@ const gameEngine = {
   }
 
 };
-
- /*
-  * step 1 - when page first loads: get new hangman word, pass hangman word to gameprops,
-  *          render underscore word to DOM
-  * 
-  * step 2 - listen for keypress events
-  * 
-  * step 3 - when keypress received, a) if it's a letter b) not previously guessed
-  *          check if in hangman word. If not in hangman word, add to guessed list. 
-  *          if it is in hangman word, update indices of underscore word re-render it.
-  *          Then decrement guesses remaining.
-  * 
-  * step ? - if hangman word not guessed yet and guessesRemaining = 0, alert of lost game,
-  *          increment loss count, reset gameProps: lettersGuessed = [], new hangman word,
-  *          guesses remaining = 10
-  * 
-  * step ? - if underscore word = hangman word, alert of won game, increment win count,
-  *          reset gameProps: lettersGuessed = [], new hangman word, guesses remaining = 10
-  * 
-  * step ? - if 
-  */
-
-/*====================================================================================*/
 
 // Initialize gameProps when page loads the first time
 gameEngine.nextRound();
