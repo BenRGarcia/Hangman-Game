@@ -151,7 +151,7 @@ const hangmanGame = {
   },
 
   didUserLose() {
-    if (this.guessesRemaining <= 0) {
+    if (this.guessesRemaining === 0) {
       this.incrementLossCount();
       return true;
     }
