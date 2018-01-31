@@ -73,7 +73,7 @@ const hangmanGame = {
       if (this.guessIsCorrect(guess)) {
         this.updateHangmanWord(guess);
         return true;
-      } 
+      }
       // If user guess was incorrect
       else {
         this.addToLettersGuessed(guess);
@@ -105,7 +105,7 @@ const hangmanGame = {
 
       // Replace underscore with letter if guess is a match
       if (this.word.charAt(i) === guess) {
-        this._hangmanWord[i] = guess; 
+        this._hangmanWord[i] = guess;
       }
     }
   },
@@ -221,12 +221,15 @@ const gameEngine = {
 
     // Was user guess 1) not a repeat, and 2) correct
     if (hangmanGame.userGuesses(guess)) {
-      
+
       // render DOM with updated hangman word
       DOM.render('correctGuess');
 
       // Test if user won the game
       if (hangmanGame.didUserWin()) {
+
+        // Disable user input
+        this.roundOver = true;
 
         // Render DOM with win
         DOM.render('winRound');
@@ -241,15 +244,16 @@ const gameEngine = {
             this.nextRound();
         }, 700);
       }
-    } 
+    }
     // If user guess was incorrect
     else {
-      
+
       DOM.render('incorrectGuess');
 
       // Test if user lost game
       if (hangmanGame.didUserLose()) {
 
+        // Disable user input
         this.roundOver = true;
 
         // Render update to DOM
@@ -290,7 +294,7 @@ document.addEventListener('keypress', (event) => {
       gameEngine.controller(guess);
     }
   }
-})
+});
 
 // Initialize gameProps when page loads the first time
 gameEngine.nextRound();
