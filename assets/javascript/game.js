@@ -248,6 +248,7 @@ const gameEngine = {
     // If user guess was incorrect
     else {
 
+      // render DOM with updated guesses, letters
       DOM.render('incorrectGuess');
 
       // Test if user lost game
