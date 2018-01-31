@@ -7,8 +7,8 @@ const hangmanWordBank = {
     {word: "CHOPIN",       src: "./assets/images/chopin.jpg",       alt: "Picture of Frédéric Chopin"      },
     {word: "BACH",         src: "./assets/images/bach.jpg",         alt: "Picture of Johann Sebastian Bach"},
     {word: "BEETHOVEN",    src: "./assets/images/beethoven.jpg",    alt: "Picture of Ludwig Van Beethoven" },
-    {word: "RACHMANINOV",  src: "./assets/images/rachmaninoff.jpg", alt: "Picture of Sergei Rachmaninov"  },
-    {word: "SHUBERT",      src: "./assets/images/shubert.jpg",      alt: "Picture of Franz Shubert"        },
+    {word: "RACHMANINOV",  src: "./assets/images/rachmaninoff.jpg", alt: "Picture of Sergei Rachmaninov"   },
+    {word: "SCHUBERT",     src: "./assets/images/schubert.jpg",     alt: "Picture of Franz Schubert"       },
     {word: "LISZT",        src: "./assets/images/liszt.jpg",        alt: "Picture of Franz Liszt"          },
     {word: "BRAHMS",       src: "./assets/images/brahms.jpg",       alt: "Picture of Johannes Brahms"      },
     {word: "MENDELSSOHN",  src: "./assets/images/mendelssohn.jpg",  alt: "Picture of Felix Mendelssohn"    },
@@ -279,6 +279,11 @@ gameEngine.nextRound();
 
 // Event listener
 document.addEventListener('keypress', (event) => {
-  let guess = event.key.toUpperCase();
-  gameEngine.controller(guess);
+
+  // Disable user input while between rounds...
+  // Prevents game errors of user just mashing keys
+  if (hangmanGame.guessesRemaining > 0) {
+    let guess = event.key.toUpperCase();
+    gameEngine.controller(guess);
+  }
 })
