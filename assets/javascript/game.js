@@ -7,7 +7,7 @@ const hangmanWordBank = {
     {word: "CHOPIN",       src: "./assets/images/chopin.jpg",       alt: "Picture of Frédéric Chopin"      },
     {word: "BACH",         src: "./assets/images/bach.jpg",         alt: "Picture of Johann Sebastian Bach"},
     {word: "BEETHOVEN",    src: "./assets/images/beethoven.jpg",    alt: "Picture of Ludwig Van Beethoven" },
-    {word: "RACHMANINOV",  src: "./assets/images/rachmaninoff.jpg", alt: "Picture of Sergei Rachmaninov"   },
+    {word: "RACHMANINOV",  src: "./assets/images/rachmaninov.jpg",  alt: "Picture of Sergei Rachmaninov"   },
     {word: "SCHUBERT",     src: "./assets/images/schubert.jpg",     alt: "Picture of Franz Schubert"       },
     {word: "LISZT",        src: "./assets/images/liszt.jpg",        alt: "Picture of Franz Liszt"          },
     {word: "BRAHMS",       src: "./assets/images/brahms.jpg",       alt: "Picture of Johannes Brahms"      },
@@ -276,7 +276,6 @@ const gameEngine = {
     DOM.render('newRound');
     this.roundOver = false;
   }
-
 };
 
 // Initialize gameProps when page loads the first time
@@ -285,8 +284,7 @@ gameEngine.nextRound();
 // Event listener
 document.addEventListener('keypress', (event) => {
 
-  // Disable user input while between rounds...
-  // Prevents game errors of user just mashing keys
+  // Prevents game errors when user mashes keys while between rounds
   if (!gameEngine.roundOver) {
     let guess = event.key.toUpperCase();
     gameEngine.controller(guess);
