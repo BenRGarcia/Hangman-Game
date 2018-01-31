@@ -34,3 +34,13 @@ h1 {
 .spacer {
   height: 100px;
 }
+
+a {
+  font-size: .8rem;
+  color: #fefefe;
+}
+
+a:hover {
+  color: #bbb;
+  text-decoration: none;
+}
