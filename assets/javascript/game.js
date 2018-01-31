@@ -33,7 +33,6 @@ const hangmanGame = {
   _wordObject: {},
   _hangmanWord: [],
   _lettersGuessed: [],
-  alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 
   get word() {
     return this._wordObject.word;
@@ -85,9 +84,8 @@ const hangmanGame = {
   },
 
   guessIsValid(guess) {
-    if (this.alphabet.indexOf(guess)        !== -1 && // guess *is* in alphabet
-        this._lettersGuessed.indexOf(guess) === -1 && // guess *not* in previously guessed letters
-        this._hangmanWord.indexOf(guess)    === -1)   // guess *not* already in hangman letters
+    if (this._lettersGuessed.indexOf(guess) === -1 && // guess not in previously guessed letters
+        this._hangmanWord.indexOf(guess)    === -1)   // guess not already in hangman letters
     {
       return true;
     }
