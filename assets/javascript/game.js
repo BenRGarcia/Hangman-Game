@@ -62,7 +62,6 @@ const hangmanGame = {
         Object.keys(obj).indexOf("word") !== -1)
     {
       this._wordObject = obj;
-      console.log(`Hangman word is: ${this.word}`);
     }
   },
 
@@ -286,7 +285,12 @@ document.addEventListener('keypress', (event) => {
 
   // Prevents game errors when user mashes keys while between rounds
   if (!gameEngine.roundOver) {
-    let guess = event.key.toUpperCase();
-    gameEngine.controller(guess);
+
+    if (event.charCode >= 65 && event.charCode <= 90 || // A-Z or...
+        event.charCode >= 97 && event.charCode <= 122)  // a-z
+    {
+      let guess = event.key.toUpperCase();
+      gameEngine.controller(guess);
+    }
   }
 })
