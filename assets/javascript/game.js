@@ -214,6 +214,8 @@ const DOM = {
 
 const gameEngine = {
 
+  roundOver: false,
+
   controller(guess) {
 
     // Was user guess valid (letter of alphabet), not a repeat, and correct
@@ -247,6 +249,8 @@ const gameEngine = {
       // Test if user lost game
       if (hangmanGame.didUserLose()) {
 
+        this.roundOver = true;
+
         // Render update to DOM
         DOM.render('loseRound');
 
@@ -270,6 +274,7 @@ const gameEngine = {
     hangmanGame.wordObject = hangmanWordBank.word;
     hangmanGame.newRound();
     DOM.render('newRound');
+    this.roundOver = false;
   }
 
 };
@@ -282,7 +287,7 @@ document.addEventListener('keypress', (event) => {
 
   // Disable user input while between rounds...
   // Prevents game errors of user just mashing keys
-  if (hangmanGame.guessesRemaining > 0) {
+  if (!gameEngine.roundOver) {
     let guess = event.key.toUpperCase();
     gameEngine.controller(guess);
   }
