@@ -164,6 +164,7 @@ const hangmanGame = {
 const DOM = {
   render(component) {
 
+    // DOM renders are expensive, only call updates to necessary components
     switch (component) {
 
       case 'incorrectGuess':
@@ -211,32 +212,32 @@ const DOM = {
 
 const gameEngine = {
 
+  // Toggle switch for between rounds, disables event listener
   roundOver: false,
 
   controller(guess) {
 
-    // Was user guess valid (letter of alphabet), not a repeat, and correct
+    // Was user guess 1) not a repeat, and 2) correct
     if (hangmanGame.userGuesses(guess)) {
       
-      // Update DOM with updated hangman word
+      // render DOM with updated hangman word
       DOM.render('correctGuess');
 
       // Test if user won the game
       if (hangmanGame.didUserWin()) {
 
-        // Render update to DOM
+        // Render DOM with win
         DOM.render('winRound');
 
         // Alert user to win (after DOM has time to render)
         setTimeout( () => {
             alert("You won this round!\n\nPress ENTER to play again!");
-        }, 100);
+        }, 400);
 
         setTimeout( () => {
             this.nextRound();
-        }, 200);
+        }, 700);
       }
-
     } 
     // If user guess was incorrect
     else {
@@ -254,16 +255,13 @@ const gameEngine = {
         // Alert user to loss (after DOM has time to render)
         setTimeout( () => {
             alert(`You lost this round!\n\nThe composer's name was: ${hangmanGame.word}\n\nPress ENTER to play again!`);
-        }, 100);
+        }, 400);
 
         setTimeout( () => {
             this.nextRound();
-        }, 200);
-
+        }, 700);
       }
-
     }
-    
   },
 
   //  Get ready for new round of gameplay
@@ -274,9 +272,6 @@ const gameEngine = {
     this.roundOver = false;
   }
 };
-
-// Initialize gameProps when page loads the first time
-gameEngine.nextRound();
 
 // Event listener
 document.addEventListener('keypress', (event) => {
@@ -292,3 +287,6 @@ document.addEventListener('keypress', (event) => {
     }
   }
 })
+
+// Initialize gameProps when page loads the first time
+gameEngine.nextRound();
