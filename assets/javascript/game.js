@@ -66,7 +66,7 @@ const hangmanGame = {
 
   userGuesses(guess) {
 
-    // Was user guess 1) a letter, and 2) not already guessed
+    // Screen out letters already guessed
     if (this.guessIsValid(guess)) {
 
       // If user guess was correct
@@ -84,15 +84,13 @@ const hangmanGame = {
   },
 
   guessIsValid(guess) {
-    if (this._lettersGuessed.indexOf(guess) === -1 && // guess not in previously guessed letters
-        this._hangmanWord.indexOf(guess)    === -1)   // guess not already in hangman letters
+    // Screen out letters already guessed
+    if (this._lettersGuessed.indexOf(guess) === -1 &&
+        this._hangmanWord.indexOf(guess)    === -1)
     {
       return true;
     }
-    else
-    {
-      return false;
-    }
+    else return false;
   },
 
   guessIsCorrect(guess) {
@@ -101,7 +99,11 @@ const hangmanGame = {
   },
 
   updateHangmanWord(guess) {
+
+    // Iterate over hangman word
     for (let i = 0; i < this.word.length; i++) {
+
+      // Replace underscore with letter if guess is a match
       if (this.word.charAt(i) === guess) {
         this._hangmanWord[i] = guess; 
       }
@@ -131,6 +133,8 @@ const hangmanGame = {
   },
 
   hangmanWordInitialState() {
+
+    // Create game's underscores to display on webpage
     let underscoreWord = [];
     for (let i = 0; i < this.word.length; i++) {
       underscoreWord.push("_");
@@ -154,8 +158,6 @@ const hangmanGame = {
     else return false;
   }
 };
-
-
 
 /*
  *  View - output representation of information
@@ -234,6 +236,7 @@ const gameEngine = {
             alert("You won this round!\n\nPress ENTER to play again!");
         }, 400);
 
+        // Set up game for next round
         setTimeout( () => {
             this.nextRound();
         }, 700);
@@ -257,6 +260,7 @@ const gameEngine = {
             alert(`You lost this round!\n\nThe composer's name was: ${hangmanGame.word}\n\nPress ENTER to play again!`);
         }, 400);
 
+        // Set up game for next round
         setTimeout( () => {
             this.nextRound();
         }, 700);
